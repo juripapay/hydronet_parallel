@@ -20,7 +20,9 @@ pip install torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geo
 
 Run the code:
 -------------
-python train_direct.py --savedir './test_train' --args 'train_args.json'
+conda activate hydronet2
+
+torchrun --standalone --nnodes=1  --nproc_per_node=2  train_direct_ddp.py --savedir './test_train_ddp1' --args 'train_args.json'
 
 '''
 
@@ -97,7 +99,7 @@ def main(args):
     
     # load datasets/dataloaders
     train_loader, val_loader, train_sampler = data_ddp.init_dataloader(args, ngpus_per_node)
-
+   
     start = torch.cuda.Event(enable_timing=True)
     end = torch.cuda.Event(enable_timing=True)
         
@@ -118,8 +120,6 @@ def main(args):
         train_loss = train_ddp.train_energy_only_ddp(args, device_id, 
                                                      net, train_loader, optimizer, 
                                                      device)
-        print(">>>>>> After train loss >>>>>")
-        sys.exit()
 
         dist.barrier()
         val_loss = train_ddp.get_pred_eloss_ddp(args, device_id, net, 

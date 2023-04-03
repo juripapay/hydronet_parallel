@@ -7,7 +7,7 @@ from utils.datasets import PrepackedDataset
 import torch.distributed as dist
 import sys
 
-
+# This class was suggested by Jesun
 class CustomDataset(torch.utils.data.Dataset):
     def __init__(self, train_file):
         self.dataset = torch.load(train_file) # assuming torch.load returns a list, initially self.dataset = []
@@ -19,6 +19,7 @@ class CustomDataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         # return each batch element
         return self.x[index], self.z[index], self.pos[index], self.y[index], self.f[index], self.size[index]
+
 
 # init_dataloader_from_file
 def init_dataloader_from_file(args, actionStr, split = '00', shuffle=True):
@@ -42,16 +43,17 @@ def init_dataloader_from_file(args, actionStr, split = '00', shuffle=True):
 
     if(actionStr =='train'):
         # load .pt files
-        # train_data = torch.load(train_file)
-        train_data = CustomDataset(train_file)
-        #val_data = torch.load(val_file)
-        val_data = CustomDataset(val_file)
+        train_data = torch.load(train_file)
+        # train_data = CustomDataset(train_file)
+        val_data = torch.load(val_file)
+        # val_data = CustomDataset(val_file)
         return train_data, val_data
 
     if(actionStr =='test'):
         testData = torch.load(test_file)
         return test_data
 
+#
 def init_dataloader(args,
                     ngpus_per_node,
                     split = '00', 
@@ -68,10 +70,23 @@ def init_dataloader(args,
     val_data = []
     examine_data = []
     
-    train_data, val_data = init_dataloader_from_file(args,"train")
+    #train_data, val_data = init_dataloader_from_file(args,"train")
+    trainData, valData = init_dataloader_from_file(args,"train")
+    
+    train_data.append(trainData)
+    val_data.append(valData)
+    # no shuffle
     train_sampler = torch.utils.data.distributed.DistributedSampler(train_data)
-    print("Train data size {:5d}".format(len(train_data)), flush=True)
- 
+
+    train_loader = DataLoader(ConcatDataset(train_data), batch_size=args.batch_size, shuffle=shuffle, pin_memory=pin_memory)
+    
+    val_loader = DataLoader(ConcatDataset(val_data), batch_size=args.batch_size, shuffle=shuffle, pin_memory=pin_memory)
+
+
+    #train_sampler = torch.utils.data.distributed.DistributedSampler(train_data)
+    
+
+    '''
     train_loader = DataLoader(train_data, 
                               batch_size=int(args.batch_size), 
                               shuffle=(train_sampler is None),
@@ -88,7 +103,12 @@ def init_dataloader(args,
                             num_workers=1,
                             pin_memory=pin_memory,
                             drop_last=True)
+
+    '''
+    print("Train data size {:5d}".format(len(train_data)), flush=True)
+    print("train_loader size {:5d}".format(len(train_loader.dataset)), flush = True)
     print("val_loader size {:5d}".format(len(val_loader.dataset)), flush = True)
+
     # ngpus_per_node
     return train_loader, val_loader, train_sampler
 
