@@ -1,24 +1,17 @@
 '''
-The DDP version of the code can be found in the schnet_ddp branch of:
-https://github.com/jenna1701/hydronet/tree/schnet_ddp/challenge-1.5
+The modified version of Hydronet parallel can be cloned by this command:
+git clone https://github.com/juripapay/hydronet_parallel
+In the modified version the data loading was changed. 
 
-For download use:
+The first DDP version of the code was developed by Firoz, Jesun S <jesun.firoz@pnnl.gov>.
+The code can be downloaded from the schnet_ddp branch:
 git clone --branch schnet_ddp https://github.com/jenna1701/hydronet/
 
+For running the parallel version of hydroned we need to create a conda environment with 
+dependencies:
+conda create --name hydronet2 --file hydronet_dependencies.txt
 
-Developed by: Firoz, Jesun S <jesun.firoz@pnnl.gov>
-
-Dependencies:
--------------
-conda create --name hydronet2 python=3.8
-activate conda hydronet2
-conda install pytorch==1.12.0 cudatoolkit=11.3 -c pytorch -c conda-forge
-conda install pyg -c pyg
-conda install -c conda-forge tensorboard ase fair-research-login h5py tqdm
-conda install -c conda-forge gdown
-pip install torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric -f https://data.pyg.org/whl/torch-1.12.0+cu113.html
-
-Run the code:
+Runing the code:
 -------------
 conda activate hydronet2
 
@@ -26,7 +19,6 @@ torchrun --standalone --nnodes=1  --nproc_per_node=2  train_direct_ddp.py --save
 
 '''
 
-# NEED TO: conda install tensorboard
 import os, sys
 import torch
 import shutil
