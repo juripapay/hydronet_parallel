@@ -61,7 +61,7 @@ def main(args):
     n_gpus = torch.cuda.device_count()
     #args.batch_size = int(n_gpus * args.batch_size)
     # For larger batches increase the learning rate.
-    args.batch_size = 128
+    args.batch_size = ngpus_per_node * 128
 
     logging.info(f'... {n_gpus} found, multipying batch size accordingly (batch size now {args.batch_size})')
     
@@ -73,7 +73,7 @@ def main(args):
             os.mkdir(os.path.join(args.savedir,'tensorboard')) 
         else:
             logging.warning(f'{args.savedir} is already a directory, either delete or choose new SAVEDIR')
-            sys.exit()
+            # sys.exit()
     
         # copy args file to training folder
         shutil.copy(args.args, os.path.join(args.savedir, 'args.json'))
