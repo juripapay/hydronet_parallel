@@ -125,7 +125,6 @@ def train_energy_forces(args, model, loader, optimizer, device, clip_value=150):
         else:
             f = torch.autograd.grad(e, data.pos, grad_outputs=torch.ones_like(e), retain_graph=True)[0]
 
-
         ef_loss, e_loss, f_loss = energy_forces_loss(args, data, e, f, e.device)
 
         with torch.no_grad():

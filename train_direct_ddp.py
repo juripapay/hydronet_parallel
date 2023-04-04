@@ -27,6 +27,7 @@ import json
 import csv
 import argparse
 import time
+
 from torch.utils.tensorboard import SummaryWriter
 
 import torch.distributed as dist
@@ -35,6 +36,7 @@ from torch.nn.parallel import DistributedDataParallel
 
 from tqdm import tqdm
 from utils import data_ddp, models, train, train_ddp, models_ddp, eval, split, hooks
+
 
 # def init_setup(args):
 def main(args):
@@ -54,6 +56,14 @@ def main(args):
     )
     print(f'num_gpus: {ngpus_per_node}')
     print("Running the DDP model")
+
+    # increase batch size based on the number of GPUs
+    n_gpus = torch.cuda.device_count()
+    #args.batch_size = int(n_gpus * args.batch_size)
+    # For larger batches increase the learning rate.
+    args.batch_size = 128
+
+    logging.info(f'... {n_gpus} found, multipying batch size accordingly (batch size now {args.batch_size})')
     
     ######## SET UP ########
     # create directory to store training results
