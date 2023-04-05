@@ -38,15 +38,14 @@ from tqdm import tqdm
 from utils import data_ddp, models, train, train_ddp, models_ddp, eval, split, hooks
 
 
-# def init_setup(args):
 def main(args):
     # os.environ["TORCH_CPP_LOG_LEVEL"]="INFO"
     # os.environ["TORCH_DISTRIBUTED_DEBUG"] = "DETAIL"  # set to DETAIL for runtime logging.
     dist.init_process_group(backend="nccl", init_method='env://')
     rank = int(os.environ["LOCAL_RANK"])  # dist.get_rank()
     print(f"Start running SchNet on rank {rank}.")
-    ngpus_per_node = torch.cuda.device_count()
-    device_id = rank # % torch.cuda.device_count()
+    n_gpus = dist.get_world_size()
+    device_id = rank
 
     torch.cuda.set_device(device_id)
 
@@ -54,16 +53,16 @@ def main(args):
         f"[{os.getpid()}]: world_size = {dist.get_world_size()}, "
         + f"rank = {dist.get_rank()}, backend={dist.get_backend()} \n", end=''
     )
-    print(f'num_gpus: {ngpus_per_node}')
+    print(f'num_gpus: {n_gpus}')
     print("Running the DDP model")
 
     # increase batch size based on the number of GPUs
-    n_gpus = torch.cuda.device_count()
     #args.batch_size = int(n_gpus * args.batch_size)
     # For larger batches increase the learning rate.
-    args.batch_size = ngpus_per_node * 128
+    local_batch_size = 128
+    global_batch_size = n_gpus * local_batch_size
 
-    logging.info(f'... {n_gpus} found, multipying batch size accordingly (batch size now {args.batch_size})')
+    logging.info(f'... {n_gpus} found, multipying batch size accordingly (batch size now {global_batch_size})')
     
     ######## SET UP ########
     # create directory to store training results
@@ -100,7 +99,7 @@ def main(args):
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=10, factor=0.8, min_lr=0.000001)
     
     # load datasets/dataloaders
-    train_loader, val_loader, train_sampler = data_ddp.init_dataloader(args, ngpus_per_node)
+    train_loader, val_loader, train_sampler = data_ddp.init_dataloader(args, local_batch_size)
    
     start = torch.cuda.Event(enable_timing=True)
     end = torch.cuda.Event(enable_timing=True)
@@ -153,7 +152,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     main(args)
 
-    # init_setup(args)
     # train_dataloader, val_dataloader = load_data(args)
 
     # world_size = torch.cuda.device_count()

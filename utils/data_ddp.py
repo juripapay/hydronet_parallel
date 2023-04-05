@@ -48,10 +48,7 @@ def init_dataloader_from_file(args, actionStr, split = '00', shuffle=True):
         return test_data
 
 #
-def init_dataloader(args,
-                    ngpus_per_node,
-                    split = '00', 
-                    shuffle=True):
+def init_dataloader(args, local_batch_size):
     """
     Returns train, val, and list of examine loaders
     """
@@ -63,41 +60,16 @@ def init_dataloader(args,
     #train_data, val_data = init_dataloader_from_file(args,"train")
     trainData, valData = init_dataloader_from_file(args,"train")
     
-    # no shuffle
     train_sampler = torch.utils.data.distributed.DistributedSampler(trainData, shuffle=True, drop_last=True)
-    train_loader = DataLoader(trainData, sampler=train_sampler, batch_size=args.batch_size//ngpus_per_node, shuffle=False, pin_memory=pin_memory)
+    train_loader = DataLoader(trainData, sampler=train_sampler, batch_size=local_batch_size, shuffle=False, pin_memory=pin_memory)
     
-    val_sampler = torch.utils.data.distributed.DistributedSampler(valData, shuffle=False, drop_last=True)
-    val_loader = DataLoader(valData, sampler=val_sampler, batch_size=args.batch_size//ngpus_per_node, shuffle=False, pin_memory=pin_memory)
+    val_sampler = torch.utils.data.distributed.DistributedSampler(valData, shuffle=True, drop_last=True)
+    val_loader = DataLoader(valData, sampler=val_sampler, batch_size=local_batch_size, shuffle=False, pin_memory=pin_memory)
 
-
-    #train_sampler = torch.utils.data.distributed.DistributedSampler(train_data)
-    
-
-    '''
-    train_loader = DataLoader(train_data, 
-                              batch_size=int(args.batch_size), 
-                              shuffle=(train_sampler is None),
-                              num_workers=1 , 
-                              pin_memory=pin_memory,
-                              sampler=train_sampler, 
-                              drop_last=True)
-
-    print("train_loader size {:5d}".format(len(train_loader.dataset)), flush = True)
-
-    val_loader = DataLoader(val_data, 
-                            batch_size=int(args.batch_size), 
-                            shuffle=False,
-                            num_workers=1,
-                            pin_memory=pin_memory,
-                            drop_last=True)
-
-    '''
     print("Train data size {:5d}".format(len(trainData)), flush=True)
     print("train_loader size {:5d}".format(len(train_loader.dataset)), flush = True)
     print("val_loader size {:5d}".format(len(val_loader.dataset)), flush = True)
 
-    # ngpus_per_node
     return train_loader, val_loader, train_sampler
 
 
