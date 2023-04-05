@@ -1,0 +1,392 @@
+Start running SchNet on rank 0.
+Start running SchNet on rank 7.
+Start running SchNet on rank 4.
+Start running SchNet on rank 2.
+Start running SchNet on rank 6.
+Start running SchNet on rank 5.
+Start running SchNet on rank 3.
+Start running SchNet on rank 1.
+[932446]: world_size = 8, rank = 0, backend=nccl 
+num_gpus: 8
+Running the DDP model
+[932456]: world_size = 8, rank = 7, backend=nccl 
+num_gpus: 8
+Running the DDP model
+[932451]: world_size = 8, rank = 4, backend=nccl 
+num_gpus: 8
+Running the DDP model
+[932448]: world_size = 8, rank = 2, backend=nccl 
+num_gpus: 8
+Running the DDP model
+[932453]: world_size = 8, rank = 5, backend=nccl 
+num_gpus: 8
+Running the DDP model
+[932455]: world_size = 8, rank = 6, backend=nccl 
+num_gpus: 8
+Running the DDP model
+[932449]: world_size = 8, rank = 3, backend=nccl 
+num_gpus: 8
+Running the DDP model
+[932447]: world_size = 8, rank = 1, backend=nccl 
+num_gpus: 8
+Running the DDP model
+Using device  cuda
+Using device  cuda
+Using device Using device   cudacuda
+
+Using device  cuda
+Using device  cuda
+Using device  cuda
+Using device  cuda
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+Train data size 107107
+train_loader size 107107
+val_loader size 13387
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5Training with dataset of size 105 on rank 7
+
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 2
+Training with dataset of size 105 on rank 1
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.00s |  valid loss 98547000.0000 |
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.09s |  valid loss 108018821.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.15s |  valid loss 104710700.5714 |
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.16s |  valid loss 97519332.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.17s |  valid loss 108822170.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.25s |  valid loss 102586654.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.28s |  valid loss 102875641.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   0 | time: 18.30s |  valid loss 101061517.1429 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 1
+Training with dataset of size 105 on rank 2
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 7
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.38s |  valid loss 8853625.0357 |
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.41s |  valid loss 8847222.5357 |
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.42s |  valid loss 9333097.6071 |
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.40s |  valid loss 8758238.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.43s |  valid loss 8562679.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.41s |  valid loss 9100875.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.44s |  valid loss 8827648.8929 |
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 12.44s |  valid loss 8638064.5000 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 1
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 7
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 2
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.79s |  valid loss 63898105.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.79s |  valid loss 61862273.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.81s |  valid loss 61452781.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.81s |  valid loss 60635936.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.83s |  valid loss 63286642.5714 |
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.82s |  valid loss 61514606.5714 |
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.87s |  valid loss 62281468.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 12.86s |  valid loss 60613746.0000 |
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 2
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 1
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 7
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.65s |  valid loss 147364008.0000 |
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.69s |  valid loss 147342876.5714 |
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.70s |  valid loss 147938166.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.70s |  valid loss 147560021.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.71s |  valid loss 148259741.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.73s |  valid loss 148475933.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.74s |  valid loss 149682729.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 12.72s |  valid loss 150154042.2857 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 6
+Training with dataset of size 105 on rank 3
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 1Training with dataset of size 105 on rank 7
+
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 2
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 0
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 12.56s |  valid loss 14596578.2143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 12.58s |  valid loss 14846136.0804 |
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 12.59s |  valid loss 15312154.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 12.61s |  valid loss 15828067.6429 |
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------| end of epoch   4 | time: 12.63s |  valid loss 16370281.6429 |
+
+| end of epoch   4 | time: 12.63s |  valid loss 15936086.9286 |
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 12.62s |  valid loss 16488562.1071 |
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 12.64s |  valid loss 15469833.0000 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 1
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 7
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 2
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 12.57s |  valid loss 1894208.8036 |
+| end of epoch   5 | time: 12.57s |  valid loss 1871725.6250 |
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 12.58s |  valid loss 1832237.5357 |
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 12.58s |  valid loss 1816828.1071 |
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 12.58s |  valid loss 1914680.3304 |
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 12.60s |  valid loss 1811640.0536 |
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 12.62s |  valid loss 1915375.3571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 12.63s |  valid loss 1801498.4375 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 2Training with dataset of size 105 on rank 1
+
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 7
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.36s |  valid loss 22817931.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.40s |  valid loss 26260415.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.39s |  valid loss 24820589.0000 |
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.42s |  valid loss 25733708.4286 |
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.42s |  valid loss 27511513.0000 |
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.45s |  valid loss 23094387.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.44s |  valid loss 27777094.5714 |
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 12.44s |  valid loss 33118831.2857 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 4
+Training with dataset of size 105 on rank 1
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 2
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 5
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 7
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.50s |  valid loss 40072430.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.56s |  valid loss 38701736.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.56s |  valid loss 37905129.5714 |
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.59s |  valid loss 38409374.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.59s |  valid loss 37332843.0000 |
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.62s |  valid loss 38322423.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.61s |  valid loss 38556092.5714 |
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 12.65s |  valid loss 37506902.5714 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 2
+Training with dataset of size 105 on rank 5
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 1
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 7
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 0
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 4
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 3
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.59s |  valid loss 22148416.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.61s |  valid loss 27166360.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.64s |  valid loss 23502897.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.62s |  valid loss 24890939.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.64s |  valid loss 24919894.0000 |
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.68s |  valid loss 25984401.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.68s |  valid loss 24902568.4286 |
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 12.67s |  valid loss 24614482.4286 |
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 7Training with dataset of size 105 on rank 3
+
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 2
+type(train_loader):  <class 'torch_geometric.loader.dataloader.DataLoader'>
+Training with dataset of size 105 on rank 6
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 1Training with dataset of size 105 on rank 4
+
+type(train_loader): type(train_loader):   <class 'torch_geometric.loader.dataloader.DataLoader'><class 'torch_geometric.loader.dataloader.DataLoader'>
+
+Training with dataset of size 105 on rank 5
+Training with dataset of size 105 on rank 0
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.61s |  valid loss 67032801.4286 |
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.64s |  valid loss 77780897.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.67s |  valid loss 53447553.1429 |
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.68s |  valid loss 68076888.8571 |
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.68s |  valid loss 69297505.7143 |
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.69s |  valid loss 82681026.0000 |
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.70s |  valid loss 55796136.2857 |
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 12.75s |  valid loss 74676889.0000 |
+Elapsed time in miliseconds 132483.109375Elapsed time in miliseconds 133825.328125
+
+Elapsed time in miliseconds 132949.90625Elapsed time in miliseconds 132898.453125
+
+Elapsed time in miliseconds 135663.984375
+Elapsed time in miliseconds 132688.546875
+Elapsed time in miliseconds 132601.9375
+Elapsed time in miliseconds 133376.359375

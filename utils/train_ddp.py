@@ -61,7 +61,7 @@ def train_energy_only_ddp(args, rank, model, loader, optimizer, device, clip_val
 
         e_loss.backward()
         optimizer.step()
-        print("batch {:5d}".format(batch_id), flush=True)
+        #print("batch {:5d}".format(batch_id), flush=True)
     #ave_e_loss = sum(total_e_loss)/len(total_e_loss)
 
     return sum(total_e_loss) # ave_e_loss
