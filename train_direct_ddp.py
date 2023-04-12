@@ -114,7 +114,7 @@ def main(args):
         # by seting random seed be current number epoch
         # so if do not call set_epoch when start of one epoch
         # the order of shuffled data will be always same
-        train_sampler.set_epoch(epoch)
+        train_sampler.sampler.set_epoch(epoch)
         epoch_start_time = time.time()
         
         print("type(train_loader): ", type(train_loader))
