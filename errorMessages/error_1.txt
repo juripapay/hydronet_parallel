@@ -1,0 +1,213 @@
+(hydroFinal) pearl061@mn2:~/swDev/hydronet_parallel$ TORCH_DISTRIBUTED_DEBUG=INFO  NCCL_DEBUG=INFO  TORCH_CPP_LOG_LEVEL=INFO python -m torch.distributed.run --nnodes=1  --nproc_per_node=2  train_direct_ddp.py --savedir './test_train_ddp2' --args 'train_args_min.json' 
+[I debug.cpp:47] [c10d] The debug level is set to INFO.
+WARNING:__main__:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[I socket.cpp:417] [c10d - debug] The server socket will attempt to listen on an IPv6 address.
+[I socket.cpp:462] [c10d - debug] The server socket is attempting to listen on [::]:29500.
+[I socket.cpp:522] [c10d] The server socket has started to listen on [::]:29500.
+[I socket.cpp:580] [c10d - debug] The client socket will attempt to connect to an IPv6 address of (127.0.0.1, 29500).
+[I socket.cpp:276] [c10d - debug] The server socket on [::]:29500 has accepted a connection from [::ffff:127.0.0.1]:38382.
+[I socket.cpp:725] [c10d] The client socket has connected to [::ffff:127.0.0.1]:29500 on [::ffff:127.0.0.1]:38382.
+[I socket.cpp:580] [c10d - debug] The client socket will attempt to connect to an IPv6 address of (127.0.0.1, 29500).
+[I socket.cpp:276] [c10d - debug] The server socket on [::]:29500 has accepted a connection from [::ffff:127.0.0.1]:38388.
+[I socket.cpp:725] [c10d] The client socket has connected to [::ffff:127.0.0.1]:29500 on [::ffff:127.0.0.1]:38388.
+[I debug.cpp:47] [c10d] The debug level is set to INFO.
+[I debug.cpp:47] [c10d] The debug level is set to INFO.
+[I socket.cpp:580] [c10d - debug] The client socket will attempt to connect to an IPv6 address of (127.0.0.1, 29500).
+[I socket.cpp:276] [c10d - debug] The server socket on [::]:29500 has accepted a connection from [::ffff:127.0.0.1]:38396.
+[I socket.cpp:580] [c10d - debug] The client socket will attempt to connect to an IPv6 address of (127.0.0.1, 29500).
+[I socket.cpp:725] [c10d] The client socket has connected to [::ffff:127.0.0.1]:29500 on [::ffff:127.0.0.1]:38396.
+[I socket.cpp:276] [c10d - debug] The server socket on [::]:29500 has accepted a connection from [::ffff:127.0.0.1]:38410.
+[I socket.cpp:580] [c10d - debug] The client socket will attempt to connect to an IPv6 address of (127.0.0.1, 29500).
+[I socket.cpp:276] [c10d - debug] The server socket on [::]:29500 has accepted a connection from [::ffff:127.0.0.1]:38412.
+[I socket.cpp:725] [c10d] The client socket has connected to [::ffff:127.0.0.1]:29500 on [::ffff:127.0.0.1]:38412.
+[I socket.cpp:725] [c10d] The client socket has connected to [::ffff:127.0.0.1]:29500 on [::ffff:127.0.0.1]:38410.
+[I socket.cpp:580] [c10d - debug] The client socket will attempt to connect to an IPv6 address of (127.0.0.1, 29500).
+[I ProcessGroupNCCL.cpp:587] [Rank 0] ProcessGroupNCCL initialized with following options:
+NCCL_ASYNC_ERROR_HANDLING: 1
+NCCL_DESYNC_DEBUG: 0
+NCCL_BLOCKING_WAIT: 0
+TIMEOUT(ms): 1800000
+USE_HIGH_PRIORITY_STREAM: 0
+[I ProcessGroupNCCL.cpp:751] [Rank 0] NCCL watchdog thread started!
+[I socket.cpp:276] [c10d - debug] The server socket on [::]:29500 has accepted a connection from [::ffff:127.0.0.1]:38414.
+[I socket.cpp:725] [c10d] The client socket has connected to [::ffff:127.0.0.1]:29500 on [::ffff:127.0.0.1]:38414.
+[I ProcessGroupNCCL.cpp:751] [Rank 1] NCCL watchdog thread started!
+[I ProcessGroupNCCL.cpp:587] [Rank 1] ProcessGroupNCCL initialized with following options:
+NCCL_ASYNC_ERROR_HANDLING: 1
+NCCL_DESYNC_DEBUG: 0
+NCCL_BLOCKING_WAIT: 0
+TIMEOUT(ms): 1800000
+USE_HIGH_PRIORITY_STREAM: 0
+Start running SchNet on rank 1.
+[2476730]: world_size = 2, rank = 1, backend=nccl 
+num_gpus: 2
+Running the DDP model
+Start running SchNet on rank 0.
+[2476729]: world_size = 2, rank = 0, backend=nccl 
+num_gpus: 2
+Running the DDP model
+mn2:2476729:2476729 [0] NCCL INFO Bootstrap : Using ib0:192.168.0.2<0>
+mn2:2476729:2476729 [0] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+libibverbs: Warning: couldn't load driver 'librxe-rdmav34.so': librxe-rdmav34.so: cannot open shared object file: No such file or directory
+libibverbs: Warning: couldn't load driver 'libmlx4-rdmav34.so': libmlx4-rdmav34.so: cannot open shared object file: No such file or directory
+mn2:2476729:2476729 [0] NCCL INFO NET/IB : Using [0]mlx5_0:1/IB [1]mlx5_1:1/IB [2]mlx5_2:1/IB [3]mlx5_3:1/IB [4]mlx5_4:1/RoCE [5]mlx5_6:1/IB [6]mlx5_7:1/IB [7]mlx5_8:1/IB [8]mlx5_9:1/IB ; OOB ib0:192.168.0.2<0>
+mn2:2476729:2476729 [0] NCCL INFO Using network IB
+NCCL version 2.10.3+cuda11.3
+mn2:2476730:2476730 [1] NCCL INFO Bootstrap : Using ib0:192.168.0.2<0>
+mn2:2476730:2476730 [1] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+libibverbs: Warning: couldn't load driver 'librxe-rdmav34.so': librxe-rdmav34.so: cannot open shared object file: No such file or directory
+libibverbs: Warning: couldn't load driver 'libmlx4-rdmav34.so': libmlx4-rdmav34.so: cannot open shared object file: No such file or directory
+mn2:2476730:2476730 [1] NCCL INFO NET/IB : Using [0]mlx5_0:1/IB [1]mlx5_1:1/IB [2]mlx5_2:1/IB [3]mlx5_3:1/IB [4]mlx5_4:1/RoCE [5]mlx5_6:1/IB [6]mlx5_7:1/IB [7]mlx5_8:1/IB [8]mlx5_9:1/IB ; OOB ib0:192.168.0.2<0>
+mn2:2476730:2476730 [1] NCCL INFO Using network IB
+mn2:2476729:2476794 [0] NCCL INFO Channel 00/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 01/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 02/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 03/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 04/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 05/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 06/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 07/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 08/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 09/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 10/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Channel 11/12 :    0   1
+mn2:2476729:2476794 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1 [2] 1/-1/-1->0->-1 [3] 1/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 1/-1/-1->0->-1 [6] 1/-1/-1->0->-1 [7] 1/-1/-1->0->-1 [8] 1/-1/-1->0->-1 [9] 1/-1/-1->0->-1 [10] 1/-1/-1->0->-1 [11] 1/-1/-1->0->-1
+mn2:2476729:2476794 [0] NCCL INFO Setting affinity for GPU 0 to 040000,00000004
+mn2:2476730:2476804 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0 [2] -1/-1/-1->1->0 [3] -1/-1/-1->1->0 [4] -1/-1/-1->1->0 [5] -1/-1/-1->1->0 [6] -1/-1/-1->1->0 [7] -1/-1/-1->1->0 [8] -1/-1/-1->1->0 [9] -1/-1/-1->1->0 [10] -1/-1/-1->1->0 [11] -1/-1/-1->1->0
+mn2:2476730:2476804 [1] NCCL INFO Setting affinity for GPU 1 to 040000,00000004
+mn2:2476729:2476794 [0] NCCL INFO Channel 00 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 00 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 01 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 01 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 02 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 02 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 03 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 03 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 04 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 04 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 05 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 05 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 06 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 06 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 07 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 07 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 08 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 08 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 09 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 09 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 10 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 10 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476729:2476794 [0] NCCL INFO Channel 11 : 0[57000] -> 1[59000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Channel 11 : 1[59000] -> 0[57000] via P2P/IPC
+mn2:2476730:2476804 [1] NCCL INFO Connected all rings
+mn2:2476730:2476804 [1] NCCL INFO Connected all trees
+mn2:2476729:2476794 [0] NCCL INFO Connected all rings
+mn2:2476729:2476794 [0] NCCL INFO Connected all trees
+mn2:2476729:2476794 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 8/8/512
+mn2:2476729:2476794 [0] NCCL INFO 12 coll channels, 16 p2p channels, 16 p2p channels per peer
+mn2:2476730:2476804 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 8/8/512
+mn2:2476730:2476804 [1] NCCL INFO 12 coll channels, 16 p2p channels, 16 p2p channels per peer
+mn2:2476729:2476794 [0] NCCL INFO comm 0x7f3ac4002fb0 rank 0 nranks 2 cudaDev 0 busId 57000 - Init COMPLETE
+[I ProcessGroupNCCL.cpp:1196] NCCL_DEBUG: INFO
+mn2:2476729:2476729 [0] NCCL INFO Launch mode Parallel
+mn2:2476730:2476804 [1] NCCL INFO comm 0x7f7ef0002fb0 rank 1 nranks 2 cudaDev 1 busId 59000 - Init COMPLETE
+Using device  cuda
+Using device  cuda
+[I reducer.cpp:110] Reducer initialized with bucket_bytes_cap: 26214400 first_bucket_bytes_cap: 1048576
+[I reducer.cpp:110] Reducer initialized with bucket_bytes_cap: 26214400 first_bucket_bytes_cap: 1048576
+[I logger.cpp:211] [Rank 1]: DDP Initialized with: 
+broadcast_buffers: 1
+bucket_cap_bytes: 26214400
+find_unused_parameters: 1
+gradient_as_bucket_view: 0
+has_sync_bn: 0
+is_multi_device_module: 0
+iteration: 0
+num_parameter_tensors: 41
+output_device: 1
+rank: 1
+total_parameter_size_bytes: 746804
+world_size: 2
+backend_name: nccl
+bucket_sizes: 746804
+cuda_visible_devices: 0,1
+device_ids: 1
+dtypes: float
+master_addr: 127.0.0.1
+master_port: 29500
+module_name: SchNet
+nccl_async_error_handling: 1
+nccl_blocking_wait: N/A
+nccl_debug: INFO
+nccl_ib_timeout: N/A
+nccl_nthreads: N/A
+nccl_socket_ifname: N/A
+torch_distributed_debug: DETAIL
+
+[I logger.cpp:211] [Rank 0]: DDP Initialized with: 
+broadcast_buffers: 1
+bucket_cap_bytes: 26214400
+find_unused_parameters: 1
+gradient_as_bucket_view: 0
+has_sync_bn: 0
+is_multi_device_module: 0
+iteration: 0
+num_parameter_tensors: 41
+output_device: 0
+rank: 0
+total_parameter_size_bytes: 746804
+world_size: 2
+backend_name: nccl
+bucket_sizes: 746804
+cuda_visible_devices: 0,1
+device_ids: 0
+dtypes: float
+master_addr: 127.0.0.1
+master_port: 29500
+module_name: SchNet
+nccl_async_error_handling: 1
+nccl_blocking_wait: N/A
+nccl_debug: INFO
+nccl_ib_timeout: N/A
+nccl_nthreads: N/A
+nccl_socket_ifname: N/A
+torch_distributed_debug: DETAIL
+
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 2476730 closing signal SIGTERM
+ERROR:torch.distributed.elastic.multiprocessing.api:failed (exitcode: -9) local_rank: 0 (pid: 2476729) of binary: /mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/bin/python
+Traceback (most recent call last):
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/site-packages/torch/distributed/run.py", line 765, in <module>
+    main()
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 345, in wrapper
+    return f(*args, **kwargs)
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/site-packages/torch/distributed/run.py", line 761, in main
+    run(args)
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/site-packages/torch/distributed/run.py", line 752, in run
+    elastic_launch(
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 131, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/mnt/beegfs/home/pearl061/.conda/envs/hydroFinal/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 245, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+========================================================
+train_direct_ddp.py FAILED
+--------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+--------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2023-04-11_14:27:37
+  host      : mn2.pearl.scd.stfc.ac.uk
+  rank      : 0 (local_rank: 0)
+  exitcode  : -9 (pid: 2476729)
+  error_file: <N/A>
+  traceback : Signal 9 (SIGKILL) received by PID 2476729
+========================================================

@@ -17,6 +17,9 @@ conda activate hydronet2
 
 torchrun --standalone --nnodes=1  --nproc_per_node=2  train_direct_ddp.py --savedir './test_train_ddp1' --args 'train_args.json'
 
+For detailed log use this command:
+TORCH_DISTRIBUTED_DEBUG=INFO NCCL_DEBUG=INFO TORCH_CPP_LOG_LEVEL=INFO python -m torch.distributed.run --nnodes=1  --nproc_per_node=2  train_direct_ddp.py --savedir './test_train_ddp2' --args 'train_args_min.json'
+
 '''
 
 import os, sys
@@ -37,13 +40,15 @@ from torch.nn.parallel import DistributedDataParallel
 from tqdm import tqdm
 from utils import data_ddp, models, train, train_ddp, models_ddp, eval, split, hooks
 
-
 def main(args):
-    # os.environ["TORCH_CPP_LOG_LEVEL"]="INFO"
-    # os.environ["TORCH_DISTRIBUTED_DEBUG"] = "DETAIL"  # set to DETAIL for runtime logging.
+    os.environ["TORCH_CPP_LOG_LEVEL"]="INFO"
+    os.environ["TORCH_DISTRIBUTED_DEBUG"] = "DETAIL"  # set to DETAIL for runtime logging.
+
     dist.init_process_group(backend="nccl", init_method='env://')
     rank = int(os.environ["LOCAL_RANK"])  # dist.get_rank()
     print(f"Start running SchNet on rank {rank}.")
+    CUDA_VISIBLE_DEVICES = int(os.environ["LOCAL_RANK"])                              
+
     n_gpus = dist.get_world_size()
     device_id = rank
 
@@ -78,6 +83,7 @@ def main(args):
         shutil.copy(args.args, os.path.join(args.savedir, 'args.json'))
 
     dist.barrier()
+    #torch.distributed.barrier(device_ids=[torch.cuda.current_device()])
     
     # read in args
     savedir = args.savedir
@@ -110,6 +116,8 @@ def main(args):
         net.train()
         # let all processes sync up before starting with a new epoch of training
         dist.barrier()
+        #torch.distributed.barrier(device_ids=[torch.cuda.current_device()])
+       
         # DistributedSampler deterministically shuffle data
         # by seting random seed be current number epoch
         # so if do not call set_epoch when start of one epoch
@@ -123,6 +131,8 @@ def main(args):
                                                      device)
 
         dist.barrier()
+        #torch.distributed.barrier(device_ids=[torch.cuda.current_device()])
+        
         val_loss = train_ddp.get_pred_eloss_ddp(args, device_id, net, 
                                             val_loader, optimizer, device)
         print("-" * 89, flush=True)
@@ -130,6 +140,7 @@ def main(args):
                 epoch, (time.time() - epoch_start_time), val_loss), flush=True)
         scheduler.step(val_loss) 
         dist.barrier()
+        #torch.distributed.barrier(device_ids=[torch.cuda.current_device()])
 
     end.record()
     dist.destroy_process_group()
