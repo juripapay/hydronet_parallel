@@ -6,33 +6,8 @@
 # in the ratio of 80/10/10 of samples
 # 
 
-
-
-'''
-For running the hydronet benchmark we need to install dependencies with specific versions, otherwise
-the application will not work. The dependencies can be installed by the following commands:
-
-1)      Create conda environment
-conda create --name hydronet2 python=3.8
-
-2)      Activate conda environment
-activate conda hydronet2
-
-3)      Installing pytorch:
-conda install pytorch==1.12.0 cudatoolkit=11.3 -c pytorch -c conda-forge
-
-4)      conda install pyg -c pyg
-
-5)      conda install -c conda-forge tensorboard ase fair-research-login h5py tqdm
-
-6)      conda install -c conda-forge gdown
-
-7) pip install torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric -f https://data.pyg.org/whl/torch-1.12.0+cu113.html
-
-'''
-
 import time
-import yaml
+#import yaml
 import torch
 import math
 from pathlib import Path
@@ -46,8 +21,6 @@ from torch.utils.tensorboard import SummaryWriter
 from torch_geometric.nn import DataParallel
 from tqdm import tqdm
 import datetime
-
-
 
 # Dataloader dependencies
 import os.path as op
@@ -82,7 +55,7 @@ def init_dataloader(actionStr, split = '00', shuffle=True):
     val_data = []
     test_data = []
     
-    hdf5_file = os.path.join('/home/pearl061/sciml_bench/datasets/hydronet_ds1','min.hdf5')
+    hdf5_file = os.path.join('~/sciml_bench/datasets/hydronet_ds1','min.hdf5')
     dataset = h5py.File(hdf5_file, "r")
 
     # dataset info
@@ -161,10 +134,10 @@ def main():
     start_load = datetime.datetime.now()
 
     train_loader, val_loader = init_dataloader('train')
-    train_loader, val_loader = init_dataloader('test')
+    test_loader, testData = init_dataloader('test')
 
     load_time = datetime.datetime.now() - start_load
     logging.info(f'Data load time: {load_time}')
 
-
 if __name__ == "__main__":
+    main()
