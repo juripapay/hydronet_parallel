@@ -54,15 +54,14 @@ def init_dataloader(actionStr, split = '00', shuffle=True):
     train_data = []
     val_data = []
     test_data = []
-    
-    hdf5_file = os.path.join('~/sciml_bench/datasets/hydronet_ds1','min.hdf5')
+    dataPath = os.path.expanduser('~/sciml_bench/datasets/hydronet_ds1')
+    hdf5_file = os.path.join(dataPath,'min.hdf5')
     dataset = h5py.File(hdf5_file, "r")
-
+   
     # dataset info
     dataset_keys = list(dataset.keys())
     pos_data = dataset['pos']
     print("dataset_keys:", dataset_keys)
-    print("pos_data[0]):", pos_data[0])
     cluster_size = 5
     x = torch.from_numpy(dataset['x'][0][:cluster_size])
    
@@ -82,7 +81,6 @@ def init_dataloader(actionStr, split = '00', shuffle=True):
     trainIndices = indexList[0:trainLen-1]
     valIndices = indexList[trainLen:trainLen+valLen-1]
     testIndices = indexList[trainLen+valLen:]
-    print('len(trainIndices): ', len(trainIndices))
     
     if(actionStr =='train'):
         start_load = datetime.datetime.now()
