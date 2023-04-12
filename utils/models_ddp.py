@@ -36,7 +36,7 @@ def load_model_ddp(args, rank, mode='train', device='cpu', frozen=False):
         net = DDP(net,
                     device_ids=[rank], 
                     output_device=rank, 
-                    find_unused_parameters=True)
+                    find_unused_parameters=False)
     
     if mode=='eval':
         # set to eval mode

@@ -1,21 +1,33 @@
 import os
+import time
 import torch
 import os.path as op
-from torch_geometric.data import DataLoader
-from torch.utils.data import ConcatDataset
-from utils.datasets import PrepackedDataset
+from torch_geometric.data import DataLoader, Dataset, Data
+from torch.utils.data.sampler import BatchSampler
+from torch.utils.data import Subset
 import torch.distributed as dist
-import sys
+import h5py
+from pathlib import Path
 
-class HydronetDataset(torch.utils.data.Dataset):
+class HydronetDataset(Dataset):
+
     def __init__(self, file_name):
-        self.dataset = torch.load(file_name)
+        self.file_handle = h5py.File(file_name)
 
     def __len__(self):
-        return len(self.dataset)
+        return self.file_handle['x'].shape[0]
 
     def __getitem__(self, index):
-        return self.dataset[index]
+        size = torch.from_numpy(self.file_handle['size'][index])
+        x = torch.from_numpy(self.file_handle['x'][index][:size])
+        z = torch.from_numpy(self.file_handle['z'][index][:size])
+        pos = torch.from_numpy(self.file_handle['pos'][index][:size])
+        y = torch.from_numpy(self.file_handle['y'][index])
+        data = Data(x=x, y=y, z=z, pos=pos, size=size)
+        return data
+
+    def __del__(self):
+        self.file_handle.close()
 
 
 # init_dataloader_from_file
@@ -23,29 +35,25 @@ def init_dataloader_from_file(args, actionStr, split = '00', shuffle=True):
     """
     Returns train, val, and list of examine loaders
     """
-    pin_memory = False if args.train_forces else True
-
-    #train_data = []
-    #val_data = []
-    #test_data = []
+    path = os.path.join(os.path.expanduser("~"), args.datadir)
+    file_name = Path(path) / 'min.hdf5'
+    dataset = HydronetDataset(file_name)
     
-    # Read input file from args
-    inputData = args.inputFile
-    onlyFileName = inputData.split(".")[0]
+    # Split data 80:10:10
+    n = len(dataset)
+    indices = torch.arange(n)
+    train_size = int(n*0.8)
+    val_size = int(n*0.1)
 
-    path1 = os.path.join(os.path.expanduser("~"), args.datadir)
-    train_file = os.path.join(path1, onlyFileName+"_trainData.pt")
-    val_file = os.path.join(path1, onlyFileName+"_valData.pt")
-    test_file = os.path.join(path1, onlyFileName+"_testData.pt")
+    train_dataset = Subset(dataset, indices[:train_size])
+    val_dataset = Subset(dataset, indices[train_size:train_size+val_size])
+    test_dataset = Subset(dataset, indices[train_size+val_size:])
 
     if(actionStr =='train'):
-        train_data = HydronetDataset(train_file)
-        val_data = HydronetDataset(val_file)
-        return train_data, val_data
+        return train_dataset, val_dataset
 
     if(actionStr =='test'):
-        testData = torch.load(test_file)
-        return test_data
+        return test_dataset
 
 #
 def init_dataloader(args, local_batch_size):
@@ -59,12 +67,14 @@ def init_dataloader(args, local_batch_size):
 
     #train_data, val_data = init_dataloader_from_file(args,"train")
     trainData, valData = init_dataloader_from_file(args,"train")
-    
+
     train_sampler = torch.utils.data.distributed.DistributedSampler(trainData, shuffle=True, drop_last=True)
-    train_loader = DataLoader(trainData, sampler=train_sampler, batch_size=local_batch_size, shuffle=False, pin_memory=pin_memory)
+    train_sampler = BatchSampler(train_sampler, batch_size=local_batch_size, drop_last=True)
+    train_loader = DataLoader(trainData, batch_sampler=train_sampler, pin_memory=pin_memory, num_workers=2)
     
     val_sampler = torch.utils.data.distributed.DistributedSampler(valData, shuffle=True, drop_last=True)
-    val_loader = DataLoader(valData, sampler=val_sampler, batch_size=local_batch_size, shuffle=False, pin_memory=pin_memory)
+    val_sampler = BatchSampler(val_sampler, batch_size=local_batch_size, drop_last=True)
+    val_loader = DataLoader(valData, batch_sampler=val_sampler, pin_memory=pin_memory, num_workers=2)
 
     print("Train data size {:5d}".format(len(trainData)), flush=True)
     print("train_loader size {:5d}".format(len(train_loader.dataset)), flush = True)

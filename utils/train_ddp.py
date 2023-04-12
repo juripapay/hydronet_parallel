@@ -1,6 +1,7 @@
 import os 
 import sys
 import logging
+import time
 import torch
 import numpy as np
 import pickle
@@ -42,6 +43,7 @@ def train_energy_only_ddp(args, rank, model, loader, optimizer, device, clip_val
     print("Training with dataset of size {} on rank {}".format(len(loader), rank), 
           flush= True)
     for batch_id, data in enumerate(loader):
+        print(f'Batch {batch_id}')
         data = data.to(rank)
         # data = data.cuda(rank, non_blocking=True)
         optimizer.zero_grad()
@@ -61,8 +63,6 @@ def train_energy_only_ddp(args, rank, model, loader, optimizer, device, clip_val
 
         e_loss.backward()
         optimizer.step()
-        #print("batch {:5d}".format(batch_id), flush=True)
-    #ave_e_loss = sum(total_e_loss)/len(total_e_loss)
 
     return sum(total_e_loss) # ave_e_loss
 
