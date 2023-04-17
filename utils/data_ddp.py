@@ -1,5 +1,7 @@
+import math
 import os
 import time
+from typing import Iterator, Optional, List
 import torch
 import os.path as op
 from torch_geometric.data import DataLoader, Dataset, Data
@@ -9,25 +11,30 @@ import torch.distributed as dist
 import h5py
 from pathlib import Path
 
-class HydronetDataset(Dataset):
+from torch.utils.data.distributed import DistributedSampler
 
-    def __init__(self, file_name):
-        self.file_handle = h5py.File(file_name)
+class HydronetDataset(Dataset):
+    def __init__(self, path):
+        with h5py.File(path, 'r') as handle:
+            self.size = torch.from_numpy(handle['size'][:])
+            self.x = torch.from_numpy(handle['x'][:])
+            self.z = torch.from_numpy(handle['z'][:])
+            self.pos = torch.from_numpy(handle['pos'][:])
+            self.y = torch.from_numpy(handle['y'][:])
+
+        self.n_samples = self.size.shape[0]
+
+        self.data_list = []
+        for index in range(self.n_samples):
+            size = self.size[index]
+            data = Data(x=self.x[index][:size], y=self.y[index], z=self.z[index][:size], pos=self.pos[index][:size], size=size)
+            self.data_list.append(data)
 
     def __len__(self):
-        return self.file_handle['x'].shape[0]
+        return self.n_samples
 
     def __getitem__(self, index):
-        size = torch.from_numpy(self.file_handle['size'][index])
-        x = torch.from_numpy(self.file_handle['x'][index][:size])
-        z = torch.from_numpy(self.file_handle['z'][index][:size])
-        pos = torch.from_numpy(self.file_handle['pos'][index][:size])
-        y = torch.from_numpy(self.file_handle['y'][index])
-        data = Data(x=x, y=y, z=z, pos=pos, size=size)
-        return data
-
-    def __del__(self):
-        self.file_handle.close()
+        return self.data_list[index]
 
 
 # init_dataloader_from_file
@@ -36,14 +43,16 @@ def init_dataloader_from_file(args, actionStr, split = '00', shuffle=True):
     Returns train, val, and list of examine loaders
     """
     path = os.path.join(os.path.expanduser("~"), args.datadir)
-    file_name = Path(path) / 'min.hdf5'
+    file_name = Path(path) / f'{args.datasets[0]}.hdf5'
+    s = time.time()
     dataset = HydronetDataset(file_name)
+    print(f"Loaded data in {time.time() - s} on rank {dist.get_rank()}")
     
     # Split data 80:10:10
     n = len(dataset)
     indices = torch.arange(n)
-    train_size = int(n*0.8)
-    val_size = int(n*0.1)
+    train_size = math.floor(n*0.8)
+    val_size = math.ceil(n*0.1)
 
     train_dataset = Subset(dataset, indices[:train_size])
     val_dataset = Subset(dataset, indices[train_size:train_size+val_size])
@@ -60,21 +69,20 @@ def init_dataloader(args, local_batch_size):
     """
     Returns train, val, and list of examine loaders
     """
-    pin_memory = False if args.train_forces else True
+    # pin_memory = False if args.train_forces else True
+    pin_memory = True
+    num_workers = 0
 
     if not isinstance(args.datasets, list):
         args.datasets = [args.datasets]
 
-    #train_data, val_data = init_dataloader_from_file(args,"train")
     trainData, valData = init_dataloader_from_file(args,"train")
 
-    train_sampler = torch.utils.data.distributed.DistributedSampler(trainData, shuffle=True, drop_last=True)
-    train_sampler = BatchSampler(train_sampler, batch_size=local_batch_size, drop_last=True)
-    train_loader = DataLoader(trainData, batch_sampler=train_sampler, pin_memory=pin_memory, num_workers=2)
+    train_sampler = DistributedSampler(trainData, shuffle=True, drop_last=True)
+    train_loader = DataLoader(trainData, sampler=train_sampler, pin_memory=pin_memory, num_workers=num_workers, batch_size=local_batch_size)
     
-    val_sampler = torch.utils.data.distributed.DistributedSampler(valData, shuffle=True, drop_last=True)
-    val_sampler = BatchSampler(val_sampler, batch_size=local_batch_size, drop_last=True)
-    val_loader = DataLoader(valData, batch_sampler=val_sampler, pin_memory=pin_memory, num_workers=2)
+    val_sampler = DistributedSampler(valData, shuffle=True, drop_last=True)
+    val_loader = DataLoader(valData, sampler=val_sampler, pin_memory=pin_memory, num_workers=num_workers, batch_size=local_batch_size)
 
     print("Train data size {:5d}".format(len(trainData)), flush=True)
     print("train_loader size {:5d}".format(len(train_loader.dataset)), flush = True)

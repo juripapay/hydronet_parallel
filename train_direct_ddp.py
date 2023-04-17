@@ -66,6 +66,8 @@ def main(args):
     # For larger batches increase the learning rate.
     local_batch_size = 128
     global_batch_size = n_gpus * local_batch_size
+    # Linear LR scaling
+    learning_rate = args.start_lr * n_gpus
 
     logging.info(f'... {n_gpus} found, multipying batch size accordingly (batch size now {global_batch_size})')
     
@@ -101,7 +103,7 @@ def main(args):
     net = models_ddp.load_model_ddp(args, device_id, device)
 
     # criterion = torch.nn.BCEWithLogitsLoss()
-    optimizer = torch.optim.Adam(net.parameters(), lr=args.start_lr)
+    optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=10, factor=0.8, min_lr=0.000001)
     
     # load datasets/dataloaders
@@ -122,7 +124,7 @@ def main(args):
         # by seting random seed be current number epoch
         # so if do not call set_epoch when start of one epoch
         # the order of shuffled data will be always same
-        train_sampler.sampler.set_epoch(epoch)
+        train_sampler.set_epoch(epoch)
         epoch_start_time = time.time()
         
         print("type(train_loader): ", type(train_loader))
@@ -131,7 +133,6 @@ def main(args):
                                                      device)
 
         dist.barrier()
-        #torch.distributed.barrier(device_ids=[torch.cuda.current_device()])
         
         val_loss = train_ddp.get_pred_eloss_ddp(args, device_id, net, 
                                             val_loader, optimizer, device)
@@ -140,7 +141,6 @@ def main(args):
                 epoch, (time.time() - epoch_start_time), val_loss), flush=True)
         scheduler.step(val_loss) 
         dist.barrier()
-        #torch.distributed.barrier(device_ids=[torch.cuda.current_device()])
 
     end.record()
     dist.destroy_process_group()

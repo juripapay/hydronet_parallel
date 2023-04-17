@@ -229,7 +229,7 @@ def get_pred_eloss(args, model, loader, optimizer, device):
             total_e_loss.append(e_loss.item())
 
 
-    ave_e_loss = sum(total_e_loss)/len(total_e_loss)
+    ave_e_loss = 0#sum(total_e_loss)/len(total_e_loss)
     return ave_e_loss
 
 def get_pred_eloss_ddp(args, rank, model, loader, optimizer, device):
@@ -251,5 +251,5 @@ def get_pred_eloss_ddp(args, rank, model, loader, optimizer, device):
         with torch.no_grad():
             total_e_loss.append(e_loss.item())
 
-    ave_e_loss = sum(total_e_loss)/len(total_e_loss)
+    ave_e_loss = 0#sum(total_e_loss)/len(total_e_loss)
     return ave_e_loss
