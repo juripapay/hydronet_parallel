@@ -15,6 +15,8 @@ from torch.utils.data.distributed import DistributedSampler
 
 class HydronetDataset(Dataset):
     def __init__(self, path):
+        super().__init__()
+
         with h5py.File(path, 'r') as handle:
             self.size = torch.from_numpy(handle['size'][:])
             self.x = torch.from_numpy(handle['x'][:])

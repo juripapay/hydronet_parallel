@@ -66,8 +66,6 @@ def main(args):
     # For larger batches increase the learning rate.
     local_batch_size = 128
     global_batch_size = n_gpus * local_batch_size
-    # Linear LR scaling
-    learning_rate = args.start_lr * n_gpus
 
     logging.info(f'... {n_gpus} found, multipying batch size accordingly (batch size now {global_batch_size})')
     
@@ -94,6 +92,9 @@ def main(args):
         args = argparse.Namespace(**args_dict)
     args.savedir = savedir
     
+    # Linear LR scaling
+    learning_rate = args.start_lr * n_gpus
+
     # check for GPU
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print("Using device ", device)
